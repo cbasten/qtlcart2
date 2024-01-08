@@ -10,7 +10,7 @@
 		9A9993DE2B41D86600C9EA42 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993DD2B41D86600C9EA42 /* main.c */; };
 		9A9993E62B41D89600C9EA42 /* qtl_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993E52B41D89600C9EA42 /* qtl_mem.c */; };
 		9A9993E92B46DF0600C9EA42 /* qtl_fileio.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993E82B46DF0600C9EA42 /* qtl_fileio.c */; };
-		9A9993EC2B48671700C9EA42 /* qtl_ran.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993EB2B48671700C9EA42 /* qtl_ran.c */; };
+		9A9993EF2B4C5E0A00C9EA42 /* qtl_ran.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993ED2B4C5E0A00C9EA42 /* qtl_ran.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,8 +32,8 @@
 		9A9993E52B41D89600C9EA42 /* qtl_mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qtl_mem.c; sourceTree = "<group>"; };
 		9A9993E72B46DF0600C9EA42 /* qtl_fileio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qtl_fileio.h; sourceTree = "<group>"; };
 		9A9993E82B46DF0600C9EA42 /* qtl_fileio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qtl_fileio.c; sourceTree = "<group>"; };
-		9A9993EA2B48671700C9EA42 /* qtl_ran.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qtl_ran.h; sourceTree = "<group>"; };
-		9A9993EB2B48671700C9EA42 /* qtl_ran.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qtl_ran.c; sourceTree = "<group>"; };
+		9A9993ED2B4C5E0A00C9EA42 /* qtl_ran.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qtl_ran.c; sourceTree = "<group>"; };
+		9A9993EE2B4C5E0A00C9EA42 /* qtl_ran.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qtl_ran.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,8 +50,6 @@
 		9A9993D12B41D86600C9EA42 = {
 			isa = PBXGroup;
 			children = (
-				9A9993EA2B48671700C9EA42 /* qtl_ran.h */,
-				9A9993EB2B48671700C9EA42 /* qtl_ran.c */,
 				9A9993DC2B41D86600C9EA42 /* qtlcart2 */,
 				9A9993DB2B41D86600C9EA42 /* Products */,
 			);
@@ -71,6 +69,8 @@
 				9A9993DD2B41D86600C9EA42 /* main.c */,
 				9A9993E72B46DF0600C9EA42 /* qtl_fileio.h */,
 				9A9993E82B46DF0600C9EA42 /* qtl_fileio.c */,
+				9A9993ED2B4C5E0A00C9EA42 /* qtl_ran.c */,
+				9A9993EE2B4C5E0A00C9EA42 /* qtl_ran.h */,
 				9A9993E42B41D89600C9EA42 /* qtl_mem.h */,
 				9A9993E52B41D89600C9EA42 /* qtl_mem.c */,
 			);
@@ -137,7 +137,7 @@
 				9A9993DE2B41D86600C9EA42 /* main.c in Sources */,
 				9A9993E62B41D89600C9EA42 /* qtl_mem.c in Sources */,
 				9A9993E92B46DF0600C9EA42 /* qtl_fileio.c in Sources */,
-				9A9993EC2B48671700C9EA42 /* qtl_ran.c in Sources */,
+				9A9993EF2B4C5E0A00C9EA42 /* qtl_ran.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
