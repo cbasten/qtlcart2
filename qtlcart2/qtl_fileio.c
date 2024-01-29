@@ -112,6 +112,7 @@ struct input_line *ReadParseFile(char *input_file, long *lineno ) {
     INP=fileopen(input_file,"r");
     lexpandbuff = (size_t) MAXLINE;
     expandbuff = calloc(lexpandbuff, sizeof(char));
+    
     lreadbuff = getdelim(&expandbuff, &lexpandbuff,linedelim, INP) ;
     anchor = ParseALine2(NULL,0, expandbuff, *lineno, delimiter );
     new_one = anchor;
@@ -119,7 +120,7 @@ struct input_line *ReadParseFile(char *input_file, long *lineno ) {
         lexpandbuff = (size_t) MAXLINE;
         expandbuff = calloc(lexpandbuff, sizeof(char));
         lreadbuff = getdelim(&expandbuff, &lexpandbuff,linedelim, INP) ;
-        // jump over empty lines
+        // empty line is end of file
         if(strlen(expandbuff)==0) {
             free( expandbuff);
             fileclose(input_file, INP);

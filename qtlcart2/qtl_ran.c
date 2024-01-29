@@ -82,22 +82,21 @@ void set_ranseed(long int ranseed, char *seedfile ) {
     
     if ( ranseed > 0 )
         read_seed = ranseed ;
-    if ( seedfile !=NULL  ) {
+    if ( seedfile !=NULL  ) {// if there is a seed file, use that one.
         fptr = fopen( seedfile, "r" );
         if ( fptr != NULL ) {
             fscanf(fptr,"%ld", &read_seed);
             fclose( fptr );
         }
     }
-    if ( read_seed > 0 )
-        first_ran = ranf( -read_seed);
-    else
-        first_ran = ranf(  read_seed);
-    while (read_seed < 0)
-        read_seed = -read_seed ;
-    if (read_seed== 0)
+    if (read_seed== 0)// don't want 0
         read_seed = time(NULL);
-    
+    if (read_seed < 0) // want it greater than 0
+        read_seed = -read_seed ;
+     
+    first_ran = ranf( -read_seed);
+     
+
     if ((read_seed & 16) == 0)
         setall(read_seed / 4 + 13, read_seed / 3 + 211);
     else

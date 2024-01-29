@@ -1,8 +1,7 @@
 //
-//  main.c
-//  qtlcart2
+//  qcrma   QTL Cartographer Random Map
 //
-//  Created by Christopher Basten on 12/31/23.
+//  Created by Christopher Basten on 1/29/2024.
 //
 
 #include <math.h>
@@ -170,27 +169,23 @@ void usage_banner(char *param_file, char *log_file, char *output_file, char *mem
 }
 
 int main(int argc, const char * argv[], char *env[]) {
-    FILE *MEMLOG=NULL, *OUT=NULL,*LOG=OUT;
+    FILE *MEMLOG=NULL, *OUT=NULL, *LOG=OUT;
     int i;
-    char *cstring=NULL, **cmatrix=NULL, *param_file=NULL, *log_file = NULL, *input_file=NULL, *output_file=NULL,*map_file = NULL,*mem_file=NULL,   *buffer,*time_buffer, *this_time;
-    int *ivector=NULL, *countvec=NULL  ;
-    long lineno=0,ran_seed=0;
-    unsigned *uvector=NULL;
-    float *fvector=NULL;
-    double *dvector=NULL, diff;
-    struct input_line *anchor=NULL, *new_one, *header_line ;
+    char *cstring=NULL, *param_file=NULL, *log_file = NULL, *output_file=NULL,*mem_file=NULL;
+    char *time_buffer, *this_time;
+    long ran_seed=0;
     int **simulated_physical_genome;
     double **cm_matrix;
     the_params *local_params;
-     
+// Set the default command line parameters, then process the arguments.
     param_file = CharVec(0,MAXNAME,NULL);
-    strcpy(param_file,"qrma.rc");
+    strcpy(param_file,"qcrma_rc.tsv");
     log_file = CharVec(0,MAXNAME,NULL);
-    strcpy(log_file, "qrma.log");
+    strcpy(log_file, "qcrma.log");
     output_file = CharVec(0,MAXNAME,NULL);
-    strcpy(output_file, "qrma.tsv");
+    strcpy(output_file, "qcrma_map.tsv");
     mem_file = CharVec(0,MAXNAME,NULL);
-    strcpy(mem_file,"qrma_mem.txt");
+    strcpy(mem_file,"qcrma_mem.txt");
     for ( i=1; i<argc; i++ ) {
         if (  ( strcmp(argv[i], "-P") == 0  ) && i+1 < argc && ! (argv[i+1][0] == '-' ) )
                 strcpy(param_file , argv[i+1]);  // parameter file
@@ -205,45 +200,36 @@ int main(int argc, const char * argv[], char *env[]) {
         if (  ( strcmp(argv[i], "-h") == 0  )   )
             usage_banner(param_file, log_file, output_file, mem_file,1, stdout);
     }
-    
+
+// If mem_file is a string, create it to track memory usage.
     if ( !(strcmp(mem_file,"NULL")==0) ) {
         MEMLOG = fileopen(mem_file,"w");
         fprintf(MEMLOG, "Function\tType\tLower\tUpper\tNumber\tAddress\n");
     } else
         MEMLOG=NULL;
+// Get the time
     time_buffer = CharVec(0,MAXNAME,MEMLOG);
     this_time = thistime( time_buffer, MAXNAME);
 
+// If log file is not the string NULL, then print a message
     if ( !(strcmp(log_file,"NULL")==0 ) ) {
         LOG= fileopen(log_file, "a");
         usage_banner(param_file, log_file, output_file, mem_file,0, LOG);
         fprintf(LOG,"It is currently %s\n", this_time);
         if (MEMLOG!=NULL)
             fprintf(LOG,"Memory tracking to %s\n",mem_file);
-    }
+    } else
+        LOG = stdout ;
     
-    buffer = CharVec(0,MAXNAME,MEMLOG);
     local_params = set_params(param_file,  LOG,MEMLOG);
 
-    cmatrix = CharMatrix(1,10,0,MAXNAME,MEMLOG);
-    for ( i=1; i<=10; i++ )
-        sprintf(cmatrix[i], "Row %d",i);
-    for (i=1; i<=10; i++)
-        printf("%s\n",cmatrix[i]);
-    Free_CharMatrix(   cmatrix, 1, 10, 0, MAXNAME, MEMLOG);
-
-    input_file = CharVec(0,MAXNAME,MEMLOG);
     cstring = CharVec(0,MAXNAME,MEMLOG);
     strcpy(cstring, SEED_FILE);
     set_ranseed(ran_seed, cstring);
 
-    //    ListFields( parameters, parameters->columns, stdout );
-    
-    //    p_rows= PrintAllInputLines( parameters, parameters->columns, '\t', stdout );
     simulated_physical_genome = sim_phys_genome( local_params->sim_chrom,  local_params->sim_len_bp, local_params->sim_len_bp_sd, local_params->sim_snps_chrom, local_params->sim_snps_chrom_sd,   MEMLOG  );
     cm_matrix = recomb_matrix( simulated_physical_genome, local_params->sim_chrom, MEMLOG, LOG );
-    map_file = CharVec(0,MAXNAME,MEMLOG);
-    strcpy(map_file, "qtl_simulated.map.tsv");
+
     if ( !(strcmp(output_file,"NULL")==0 ) ) {
         OUT=fileopen(output_file,"w");
         ShowGenomeBPcM(local_params->sim_chrom, simulated_physical_genome, cm_matrix  ,local_params->sim_alpha, local_params->sim_beta, OUT);
@@ -251,83 +237,20 @@ int main(int argc, const char * argv[], char *env[]) {
     }
     FreeGenomeBPcM(local_params->sim_chrom,  simulated_physical_genome, cm_matrix  ,  MEMLOG );
 
-
-    lineno=0;
-    strcpy(input_file, "g2f_2022_phenotypic_raw_data.csv");
-    anchor = ReadParseFile(input_file, &lineno );
-
-    if ( anchor !=NULL ) {
-        output_file = CharVec(0,MAXNAME,MEMLOG);
-        strcpy(output_file, "g2f_2022_phenotypic_raw_data.tsv");
-        OUT=fileopen(output_file,"w");
-        for ( new_one = anchor; new_one !=NULL ; new_one=new_one->next)
-            PrintInputLine( new_one, new_one->columns, '\t', OUT );
-        fileclose(output_file, OUT);
-    }
-    header_line = ReadByLine( input_file ) ;
-    countvec = IntVec(0,7,MEMLOG);
-
-    ivector = IntVec(1,N_INTS,MEMLOG);
-    for ( i=1; i<=N_INTS; i++ ){
-        ivector[i] =  (int) iran( 1L , 6L ) ;
-        if ( ivector[i]>=0 && ivector[i]<=7 )
-            countvec[ivector[i]]++;
-    }
-    PrintIntVec(ivector, 1, 64, "IntVector", '\t', "\n" , stdout );
-
-    uvector = UnsignedVec(1,N_INTS,MEMLOG);
-    for ( i=1; i<=N_INTS; i++ ) {
-        uvector[i] =  (unsigned) iran( 1L , 6L ) ;
-        if ( uvector[i]>=0 && uvector[i]<=7 )
-            countvec[(int)uvector[i]]++;
-    }
-    PrintUnsignedVec(uvector, 1, 64, "UnsignedVector", '\t', "\n" , stdout );
-
-    PrintIntVec(countvec, 0, 7, "Counts", '\t', "\n" , stdout );
-
-
-    dvector = DoubVec(1,1024,MEMLOG);
-    ran_arry(1, 1024,  dvector);
-    PrintDoubleVec(dvector, 1, 64, "DoubleVector", '\t', "\n" , stdout );
-
-    fvector = FloatVec(1,64,MEMLOG);
-    for ( i=1; i<=64; i++ )
-        fvector[i] = (float) gennor(150.0,14.0);
-    PrintFloatVec(fvector, 1, 64, "FloatVector", '\t', "\n" , stdout );
-    
-    diff = 0.0;
-    for ( i=1; i<=64; i++ )
-        diff = fabs( dvector[i]-fvector[i]) ;
-    printf( "Float and Double diff %f\n", diff);
-    
-    new_one=anchor;
-    while ( new_one != NULL)
-        new_one = DeAllocInputLine(new_one);
-    anchor = NULL;
-
-
-    if ( ivector !=NULL )
-        free_IntVec(  ivector , 1, 1024, MEMLOG);
-    if ( uvector !=NULL )
-        free_UnsignedVec(  uvector  , 1, 1024,  MEMLOG);
-    if ( fvector !=NULL )
-        free_FloatVec(  fvector  , 1, 64,   MEMLOG);
-    if ( dvector !=NULL )
-        free_DoubVec(  dvector  , 1, 1024,   MEMLOG);
-    if ( cstring !=NULL )
-        free_CharVec(  cstring  ,  0, MAXNAME,   MEMLOG);
     if ( time_buffer !=NULL )
         free_CharVec(  time_buffer  ,  0, MAXNAME , MEMLOG);
-    if ( buffer !=NULL )
-        free_CharVec(  buffer  ,  0, MAXNAME,   MEMLOG);
-    if ( input_file !=NULL )
-        free_CharVec(  input_file  ,  0, MAXNAME,  MEMLOG);
     if ( output_file != NULL )
         free_CharVec(  output_file ,  0, MAXNAME, MEMLOG);
     if ( MEMLOG != NULL)
         fileclose(mem_file, MEMLOG);
-    
-    
-    
+    if ( mem_file != NULL )
+        free_CharVec(  mem_file ,  0, MAXNAME, MEMLOG);
+    if ( LOG != NULL )
+        fileclose(log_file, LOG);
+    if ( log_file != NULL)
+        free_CharVec(  log_file ,  0, MAXNAME, MEMLOG);
+    if ( param_file != NULL)
+        free_CharVec(  param_file ,  0, MAXNAME, MEMLOG);
+
     return 0;
 }

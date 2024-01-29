@@ -12,6 +12,88 @@
 #define FALSE 0
 #define TRUE 1
 
+char *thistime( char *time_buffer, size_t tlen) {
+ 
+    time_t tptr;
+    struct tm *tms;
+    size_t len;
+    
+    time( &tptr );
+    tms = localtime( &tptr );
+    len = strftime( time_buffer, tlen, "%H:%M:%S on %A, %d %B %Y", tms );
+
+    if ( len == 0 )
+        return NULL;
+    else
+        return time_buffer;
+
+    
+}
+/*
+ Trim whitespace off the front and end of a string.
+ */
+char *trim(char *str) {
+    size_t len = 0;
+    char *frontp = str;
+    char *endp = NULL;
+    
+    if( str == NULL )
+        return NULL;
+    len = strlen(str);
+    if( len==0 )
+        return str;
+    
+    endp = str + len;
+    
+    /* Move the front and back pointers to address the first non-whitespace
+     * characters from each end.
+     */
+    while( isspace((unsigned char) *frontp) ) {
+        ++frontp;
+    }
+    if( endp != frontp ) {
+        while( isspace((unsigned char) *(--endp)) && endp != frontp ) {}
+    }
+    
+    if ( str + len - 1 != endp )
+        *(endp + 1) = '\0';
+    else if ( frontp != str &&  endp == frontp )
+        *str = '\0';
+    
+    /* Shift the string so that it starts at str so that if it's dynamically
+     * allocated, we can still free it on the returned pointer.  Note the reuse
+     * of endp to mean the front of the string buffer now.
+     */
+    endp = str;
+    if( frontp != str ) {
+        while( *frontp ) { *endp++ = *frontp++; }
+        *endp = '\0';
+    }
+    return str;
+}
+
+
+char *strupr(char *s) {
+  int len, ii;
+  if ( s == NULL )
+    return(s);
+  len = (int) strlen(s);
+  for (ii = 0; ii < len; ii++)
+    if ( islower(s[ii]) )
+      s[ii] = toupper(s[ii]);
+  return s;
+}
+
+char *strlwr(char *s) {
+  int len, ii;
+  if ( s == NULL )
+    return(s);
+  len = (int) strlen(s);
+  for (ii = 0; ii < len; ii++)
+    if ( isupper(s[ii]) )
+      s[ii] = tolower(s[ii]);
+  return(s);
+}
 void PrintInputLine( struct input_line *thisline, int ntoks, char thedelim, FILE *OUT ) {
 
     int i;
@@ -19,6 +101,61 @@ void PrintInputLine( struct input_line *thisline, int ntoks, char thedelim, FILE
         fprintf(OUT, "%s%c", thisline->fields[i], thedelim);
     fprintf(OUT, "%s\n", thisline->fields[thisline->columns]);
  }
+
+void ListFields( struct input_line *thisline, int ntoks,   FILE *OUT ) {
+    
+    int i;
+    for (i=1; i<=ntoks; i++ )
+        fprintf(OUT, "%d\t%s\n",i, thisline->fields[i] );
+     
+ }
+int PrintAllInputLines( struct input_line *anchor, int ntoks, char thedelim, FILE *OUT ) {
+    struct input_line *thisline;
+    int counter=0;
+    for ( thisline = anchor; thisline!=NULL ; thisline = thisline->next) {
+        PrintInputLine( thisline, ntoks, thedelim, OUT);
+        counter++;
+    }
+    return(counter);
+
+}
+
+int FindColumnHead( struct input_line *anchor, char *key, char *buffer) {
+    int column = -1;
+    int i, is_same;
+    if (anchor==NULL )
+        return(column);
+    column--;
+    if ( anchor->fields==NULL)
+        return(column);
+    column--;
+    if ( anchor->columns==0 )
+        return(column);
+    column--;
+    for ( i=1; i<=anchor->columns; i++ ) {
+        strcpy( buffer, anchor->fields[i]);
+        strlwr(buffer);
+        if ( (is_same=strcmp( buffer, key) ) == 0 )
+            return( i);
+    }
+    return(column);
+}
+
+char *FindKeyValue( struct input_line *anchor, int key_col, int val_col, char *key ) {
+    char *return_value = NULL;
+    struct input_line *thisline;
+    int is_same;
+    
+    for ( thisline=anchor; thisline != NULL; thisline = thisline->next)
+        if ( (is_same=strcmp( thisline->fields[key_col], key) ) == 0 )
+            return( thisline->fields[val_col]);
+    
+    
+    return( return_value );
+    
+    
+    
+}
 
 /*
  
@@ -55,7 +192,7 @@ struct input_line *DeAllocInputLine(struct input_line *inp ) {
         free( inp->input );
 //        free_Vec( inp->input, 0, (int) strlen(inp->input) , "char", NULL);
     if ( inp->fields!=NULL )
-        free_PtrVec( (void **) (inp->fields+1), 1, inp->columns  , "char*", NULL);
+        free_CharPtrVec( inp->fields, 1, inp->columns , NULL);
     free( (char*) inp );
     return(ret_line);
 }
