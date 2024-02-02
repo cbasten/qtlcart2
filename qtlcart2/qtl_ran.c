@@ -104,16 +104,14 @@ void set_ranseed(long int ranseed, char *seedfile ) {
 
 }
 
+// default of qtl_seed.txt.  If it exists, then write the current seed.
 void print_ranseed( char *seedfile ) {
     FILE *fptr;
-
     if ( seedfile !=NULL  ) {
         fptr = fopen( seedfile, "w" );
         fprintf(fptr, "%ld\n", ix);
         fclose(fptr);
     }
-
-
 }
 
 /*

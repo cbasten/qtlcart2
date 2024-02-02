@@ -21,6 +21,15 @@
 		9AD73CFC2B67F6A9000DAB85 /* qtl_ran.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993ED2B4C5E0A00C9EA42 /* qtl_ran.c */; };
 		9AD73CFD2B67F6AD000DAB85 /* qtl_fileio.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993E82B46DF0600C9EA42 /* qtl_fileio.c */; };
 		9AD73CFE2B67F6B1000DAB85 /* qtl_mapfunc.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD73CEC2B5E9F42000DAB85 /* qtl_mapfunc.c */; };
+		9AD73D062B6A8F5A000DAB85 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD73D052B6A8F5A000DAB85 /* main.c */; };
+		9AD73D0A2B6A908A000DAB85 /* qtl_sim.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD73CE92B5C4E84000DAB85 /* qtl_sim.c */; };
+		9AD73D0B2B6A908A000DAB85 /* qtl_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993E52B41D89600C9EA42 /* qtl_mem.c */; };
+		9AD73D0C2B6A908A000DAB85 /* qtl_string.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993F12B4C5ECD00C9EA42 /* qtl_string.c */; };
+		9AD73D0D2B6A908A000DAB85 /* qtl_mapfunc.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD73CEC2B5E9F42000DAB85 /* qtl_mapfunc.c */; };
+		9AD73D0E2B6A908A000DAB85 /* qtl_fileio.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993E82B46DF0600C9EA42 /* qtl_fileio.c */; };
+		9AD73D0F2B6A908A000DAB85 /* qtl_ran.c in Sources */ = {isa = PBXBuildFile; fileRef = 9A9993ED2B4C5E0A00C9EA42 /* qtl_ran.c */; };
+		9AD73D122B6D1979000DAB85 /* qtl_read_std.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD73D112B6D1979000DAB85 /* qtl_read_std.c */; };
+		9AD73D132B6D1979000DAB85 /* qtl_read_std.c in Sources */ = {isa = PBXBuildFile; fileRef = 9AD73D112B6D1979000DAB85 /* qtl_read_std.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +43,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		9AD73CF02B67E3A7000DAB85 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		9AD73D012B6A8F5A000DAB85 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -61,6 +79,10 @@
 		9AD73CEC2B5E9F42000DAB85 /* qtl_mapfunc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qtl_mapfunc.c; sourceTree = "<group>"; };
 		9AD73CF22B67E3A7000DAB85 /* qcrma */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = qcrma; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD73CF42B67E3A8000DAB85 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		9AD73D032B6A8F5A000DAB85 /* qcrmo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = qcrmo; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AD73D052B6A8F5A000DAB85 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		9AD73D102B6D1979000DAB85 /* qtl_read_std.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = qtl_read_std.h; sourceTree = "<group>"; };
+		9AD73D112B6D1979000DAB85 /* qtl_read_std.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = qtl_read_std.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +100,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AD73D002B6A8F5A000DAB85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -86,6 +115,7 @@
 			children = (
 				9A9993DC2B41D86600C9EA42 /* qtlcart2 */,
 				9AD73CF32B67E3A8000DAB85 /* qcrma */,
+				9AD73D042B6A8F5A000DAB85 /* qcrmo */,
 				9A9993DB2B41D86600C9EA42 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,6 +125,7 @@
 			children = (
 				9A9993DA2B41D86600C9EA42 /* qtlcart2 */,
 				9AD73CF22B67E3A7000DAB85 /* qcrma */,
+				9AD73D032B6A8F5A000DAB85 /* qcrmo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				9A9993DD2B41D86600C9EA42 /* main.c */,
+				9AD73D102B6D1979000DAB85 /* qtl_read_std.h */,
+				9AD73D112B6D1979000DAB85 /* qtl_read_std.c */,
 				9AD73CEB2B5E9F42000DAB85 /* qtl_mapfunc.h */,
 				9AD73CEC2B5E9F42000DAB85 /* qtl_mapfunc.c */,
 				9A9993E72B46DF0600C9EA42 /* qtl_fileio.h */,
@@ -125,6 +158,14 @@
 				9AD73CF42B67E3A8000DAB85 /* main.c */,
 			);
 			path = qcrma;
+			sourceTree = "<group>";
+		};
+		9AD73D042B6A8F5A000DAB85 /* qcrmo */ = {
+			isa = PBXGroup;
+			children = (
+				9AD73D052B6A8F5A000DAB85 /* main.c */,
+			);
+			path = qcrmo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +205,23 @@
 			productReference = 9AD73CF22B67E3A7000DAB85 /* qcrma */;
 			productType = "com.apple.product-type.tool";
 		};
+		9AD73D022B6A8F5A000DAB85 /* qcrmo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AD73D072B6A8F5A000DAB85 /* Build configuration list for PBXNativeTarget "qcrmo" */;
+			buildPhases = (
+				9AD73CFF2B6A8F5A000DAB85 /* Sources */,
+				9AD73D002B6A8F5A000DAB85 /* Frameworks */,
+				9AD73D012B6A8F5A000DAB85 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = qcrmo;
+			productName = qcrmo;
+			productReference = 9AD73D032B6A8F5A000DAB85 /* qcrmo */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -177,6 +235,9 @@
 						CreatedOnToolsVersion = 13.2.1;
 					};
 					9AD73CF12B67E3A7000DAB85 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					9AD73D022B6A8F5A000DAB85 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
@@ -196,6 +257,7 @@
 			targets = (
 				9A9993D92B41D86600C9EA42 /* qtlcart2 */,
 				9AD73CF12B67E3A7000DAB85 /* qcrma */,
+				9AD73D022B6A8F5A000DAB85 /* qcrmo */,
 			);
 		};
 /* End PBXProject section */
@@ -210,6 +272,7 @@
 				9A9993F22B4C5ECD00C9EA42 /* qtl_string.c in Sources */,
 				9A9993E92B46DF0600C9EA42 /* qtl_fileio.c in Sources */,
 				9AD73CED2B5E9F42000DAB85 /* qtl_mapfunc.c in Sources */,
+				9AD73D122B6D1979000DAB85 /* qtl_read_std.c in Sources */,
 				9A9993EF2B4C5E0A00C9EA42 /* qtl_ran.c in Sources */,
 				9AD73CEA2B5C4E84000DAB85 /* qtl_sim.c in Sources */,
 			);
@@ -226,6 +289,21 @@
 				9AD73CFE2B67F6B1000DAB85 /* qtl_mapfunc.c in Sources */,
 				9AD73CFB2B67F6A4000DAB85 /* qtl_sim.c in Sources */,
 				9AD73CFD2B67F6AD000DAB85 /* qtl_fileio.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AD73CFF2B6A8F5A000DAB85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AD73D0C2B6A908A000DAB85 /* qtl_string.c in Sources */,
+				9AD73D062B6A8F5A000DAB85 /* main.c in Sources */,
+				9AD73D0F2B6A908A000DAB85 /* qtl_ran.c in Sources */,
+				9AD73D0D2B6A908A000DAB85 /* qtl_mapfunc.c in Sources */,
+				9AD73D0A2B6A908A000DAB85 /* qtl_sim.c in Sources */,
+				9AD73D132B6D1979000DAB85 /* qtl_read_std.c in Sources */,
+				9AD73D0B2B6A908A000DAB85 /* qtl_mem.c in Sources */,
+				9AD73D0E2B6A908A000DAB85 /* qtl_fileio.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +453,22 @@
 			};
 			name = Release;
 		};
+		9AD73D082B6A8F5A000DAB85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9AD73D092B6A8F5A000DAB85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -401,6 +495,15 @@
 			buildConfigurations = (
 				9AD73CF72B67E3A8000DAB85 /* Debug */,
 				9AD73CF82B67E3A8000DAB85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AD73D072B6A8F5A000DAB85 /* Build configuration list for PBXNativeTarget "qcrmo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AD73D082B6A8F5A000DAB85 /* Debug */,
+				9AD73D092B6A8F5A000DAB85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

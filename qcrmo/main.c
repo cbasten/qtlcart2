@@ -1,5 +1,5 @@
 //
-//  qcrma   QTL Cartographer Random Map
+//  qcrmo   QTL Cartographer Random Model
 //
 //  Created by Christopher Basten on 1/29/2024.
 //
@@ -30,13 +30,17 @@ typedef struct local_params {
     int sim_len_bp_sd;
     int sim_snps_chrom;
     int sim_snps_chrom_sd;
-    int map_function;
     double sim_alpha;
     double sim_beta;
+    
+    
+    
+    int map_function;
     double map_function_param;
     char *map_function_name;
     
     char *param_file;
+    char *input_file;
     char *output_file;
     char *log_file;
     char *init_time;

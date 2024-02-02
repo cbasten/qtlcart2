@@ -14,6 +14,7 @@
 #include <ctype.h>
 #include <time.h>
 #include "qtl_mem.h"
+#define MAXTOKEN 127
 
 typedef struct input_line {   /* structure to hold a line of input */
     char *input;              /* full input line, fields will point to places in this string  */
